@@ -1,5 +1,8 @@
 text1 = input("Hãy nhập một câu bằng tiếng anh bất kì mà bạn muốn: ")
 text = text1.lower()
+danh_sach = text.strip().split(" ")
+so_luong_tu = text.replace("!","").replace("?","").replace(".","").strip().count(" ") + 1
+
 print("\n\nCâu của bạn là:",text)
 
 if text.endswith("end") is True:
@@ -16,8 +19,5 @@ if text.count("is") >=1:
 else:
     print("\nKhông có từ \"is\" xuất hiện trong câu")
 
-danh_sach = text.strip().split(" ")
-so_luong_tu = text.strip().count(" ") + 1
 print("\nCâu trên chuyển thành danh sách, ta sẽ được danh sách sau:",danh_sach)
-print("\nSố lượng từ có trong câu là:",so_luong_tu)
-    
+print("\nSố lượng từ có trong câu là:",so_luong_tu)  
