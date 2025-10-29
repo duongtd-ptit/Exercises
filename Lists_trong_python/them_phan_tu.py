@@ -30,7 +30,33 @@ print(list_4)
 my_list = list(map(lambda x: x+2, list_1)) #thay đổi bằng hàm map và lambda
 print(my_list)
 
-my_list_1 = [10,11,12,13]
+my_list_1 = [10,11,12,13] #hàm enumerate 
 for index, value in enumerate(my_list_1):
     my_list_1[index] = value + 2
 print(my_list_1) 
+
+#hàm filter để thay đổi khi thoả mãn một điều kiện gì đó
+mylist = [10, 20, 30, 40, 50]
+mylist = list(filter(lambda x: x != 30, mylist))  # Loại bỏ phần tử có giá trị 30
+print(mylist)
+
+#Hàm reduce từ module functools có thể được sử dụng để thay đổi các phần tử trong List bằng cách áp dụng một hàm tích lũy
+from functools import reduce
+
+mylist = [10, 20, 30, 40, 50]
+sum_list = reduce(lambda x, y: x + y, mylist)  # Tính tổng các phần tử trong List
+print(sum_list)
+
+#Hàm zip có thể được sử dụng để thay đổi các phần tử trong nhiều List cùng một lúc
+list1 = [10, 20, 30]
+list2 = [1, 2, 3]
+result = [x + y for x, y in zip(list1, list2)]
+print(result)
+
+
+#Module itertools cung cấp nhiều công cụ mạnh mẽ để làm việc với List. Ví dụ, chúng ta có thể sử dụng itertools.starmap để thay đổi các phần tử trong List:
+import itertools
+
+mylist = [(1, 2), (3, 4), (5, 6)]
+result = list(itertools.starmap(lambda x, y: x + y, mylist))
+print(result)
