@@ -1,5 +1,5 @@
-length = int(input("Nhập chiều dài của hình chữ nhật: "))
-width = int(input("Nhập chiều rộng của hình chữ nhật: "))
+length = float(input("Nhập chiều dài của hình chữ nhật: "))
+width = float(input("Nhập chiều rộng của hình chữ nhật: "))
 perimeter = 2*(length+width)
 area = length*width
 print(f"Chu vi hình chữ nhật là: {perimeter}")

@@ -1,5 +1,5 @@
-a = int(input("Nhập số a mà bạn muốn so sánh: "))
-b = int(input("Nhập số b mà bạn muốn so sánh: "))
+a = float(input("Nhập số a mà bạn muốn so sánh: "))
+b = float(input("Nhập số b mà bạn muốn so sánh: "))
 if a > b:
     print(f"Số lớn hơn là: {a}")
 elif a < b:
