@@ -1,0 +1,7 @@
+string = input("Vui lòng nhập một chuỗi: ")
+print("*"*30)
+split_string = string.split()
+print(split_string)
+print("*"*30)
+print(f"Chuỗi của bạn sau khi sửa: {string.capitalize().replace(' ','-')}")
+print("*"*30)
