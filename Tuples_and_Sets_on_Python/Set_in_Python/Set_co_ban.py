@@ -5,10 +5,16 @@
 #có thể thay đổi thêm xoá các phần tử
 numbers = [1,2,3,4,5,6,1,1,1,2,3,4]
 numbers_set = set(numbers)
-print(f"{numbers_set}\t")
+print(f"{numbers_set}")
+print("="*30)
 empty_set = set() #tạo set rỗng
 fruits = {"apple","banana","apple"}
 fruits_set = set(fruits)
 fruits_set.add("cherry") #thêm 1 phần tử
 fruits_set.update(["orange","banana"]) #thêm nhiều phần tử
 print(fruits_set)
+print("="*30)
+fruits_set.remove("banana") #báo lỗi nếu không tồn tại
+fruits_set.discard("mango") #không lỗi nếu không tồn tại
+fruits_set.pop() #xoá ngẫu nhiên 1 phần tử
+fruits_set.clear() #xoá hết
