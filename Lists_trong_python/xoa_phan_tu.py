@@ -14,4 +14,4 @@ print(animals)
 original_animals = animals.copy()
 print(original_animals)
 reverse_animals = animals.reverse()
-print(reverse_animals[1])
+print(reverse_animals) #trả về None vì hàm reverse xoá vĩnh viễn ptu trong list

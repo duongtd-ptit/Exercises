@@ -1,0 +1,8 @@
+set1 = set(map(int, input("Nhập các phần tử của set 1, cách nhau bằng dấu cách: ").split()))
+set2 = set(map(int, input("Nhập các phần tử của set 2, cách nhau bằng dấu cách: ").split()))
+giao = set1.intersection(set2)
+hop = set1.union(set2)
+hieu = set1.difference(set2)
+print("Giao của hai set:", giao)
+print("Hợp của hai set:", hop)
+print("Hiệu của set 1 so với set 2:", hieu)
