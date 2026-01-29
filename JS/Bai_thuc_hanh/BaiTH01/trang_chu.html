@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLB Tín Nguyện - Chùa Cổ Am</title>
+    <style>
+        /* 1. CẤU HÌNH CHUNG */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            /* Phông chữ hiện đại hơn */
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            /* Nền xám xanh nhẹ dịu mắt */
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 2. HEADER & BANNER */
+        .header-banner {
+            width: 100%;
+            height: 300px;
+            /* Chiều cao cố định cho đẹp */
+            object-fit: cover;
+            display: block;
+            /* Nếu chưa có ảnh, dùng màu tạm để bạn dễ hình dung */
+            background-color: #ddd;
+        }
+
+        /* 3. MENU ĐIỀU HƯỚNG */
+        .navbar {
+            background-color: #d32f2f;
+            /* Màu Đỏ nhiệt huyết (hoặc đổi thành Xanh áo đoàn #1a73e8) */
+            display: flex;
+            justify-content: center;
+            /* Căn giữa menu cho trang trọng */
+            position: sticky;
+            /* Dính menu lên trên cùng khi cuộn */
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar a {
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #b71c1c;
+            /* Màu đỏ đậm hơn khi di chuột */
+            border-bottom: 3px solid #ffcc00;
+            /* Vạch vàng dưới chân */
+        }
+
+        /* 4. NỘI DUNG CHÍNH */
+        .main-content {
+            padding: 30px;
+        }
+
+        .section-title {
+            color: #d32f2f;
+            text-align: center;
+            /* Tiêu đề căn giữa */
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            font-size: 26px;
+            position: relative;
+        }
+
+        /* Tạo đường gạch chân nhỏ dưới tiêu đề */
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: #ffcc00;
+            margin: 10px auto 0;
+        }
+
+        /* LƯỚI HOẠT ĐỘNG */
+        .activity-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            /* 2 cột */
+            gap: 25px;
+        }
+
+        .activity-card {
+            border-radius: 8px;
+            overflow: hidden;
+            /* Bo góc cả ảnh bên trong */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            background: #fff;
+            border: 1px solid #eee;
+        }
+
+        /* Hiệu ứng nhấc lên nhẹ khi di chuột vào ô */
+        .activity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .activity-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-content h3 {
+            margin: 0 0 10px;
+            color: #333;
+            font-size: 18px;
+        }
+
+        .date-tag {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 10px;
+            display: block;
+            font-style: italic;
+        }
+
+        .card-content p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        /* Nút tham gia */
+        .btn-join {
+            display: inline-block;
+            background-color: #1a73e8;
+            /* Màu xanh hành động */
+            color: white;
+            padding: 8px 20px;
+            text-decoration: none;
+            border-radius: 20px;
+            /* Bo tròn nút */
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .btn-join:hover {
+            background-color: #1557b0;
+        }
+
+        /* 5. FOOTER */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        /* Responsive: Trên điện thoại sẽ thành 1 cột */
+        @media (max-width: 600px) {
+            .activity-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <img src="hinh_nen_chinh.jpg" alt="Ảnh tập thể CLB Tín Nguyện" class="header-banner">
+
+        <nav class="navbar">
+            <a href="#">Trang chủ</a>
+            <a href="gioi-thieu.html">Giới thiệu & Lịch sử</a>
+            <a href="su-kien.html">Sự kiện sắp tới</a>
+            <a href="tuyen-thanh-vien.html">Đăng ký thành viên</a>
+            <a href="lien-he.html">Liên hệ</a>
+        </nav>
+
+        <main class="main-content">
+            <h2 class="section-title">Sự kiện nổi bật 2025</h2>
+
+            <div class="activity-grid">
+                <div class="activity-card">
+                    <img src="trung_thu_cho_em.jpg" alt="Trung thu cho em">
+                    <div class="card-content">
+                        <h3>🌕Trung Thu Cho Em 2025🌙</h3>
+                        <span class="date-tag">📅 06/10/2025 - Chùa Cổ Am</span>
+                        <p>🥮Tết Trung Thu năm nay, chùa Cổ Am lại rộn ràng tiếng cười, tiếng trống lân và ánh sáng lung
+                            linh của những chiếc đèn đủ sắc màu. Dưới mái chùa thân thương, các em nhỏ cùng Phật tử gần
+                            xa đã có một đêm hội thật ý nghĩa – nơi trăng tròn không chỉ tỏa sáng trên cao, mà còn lan
+                            tỏa trong từng nụ cười hồn nhiên, trong từng tấm lòng sẻ chia.</p>
+                        <a href="https://www.facebook.com/share/p/16m1Mc4BBz/" target="_blank" class="btn-join">Xem thêm
+                            >></a>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <img src="le_vu_lan.jpg" alt="Lễ Vu Lan báo hiếu">
+                    <div class="card-content">
+                        <h3>Lễ Vu Lan báo hiếu 2025</h3>
+                        <span class="date-tag">📅 26/08/2025 - Chùa Cổ Am</span>
+                        <p>❤️ Bông hồng đỏ là niềm hạnh phúc tròn đầy khi còn đủ cả cha mẹ.
+                            💕Bông hồng nhạt là sự ngậm ngùi thương nhớ khi chỉ còn một trong hai.
+                            🤍 Bông hồng trắng là nỗi xót xa nghìn trùng khi cha mẹ đã khuất.
+                            🌹Trên ngực áo, mỗi sắc hoa là một lời nhắc nhở sâu sắc về công ơn sinh thành dưỡng dục. Và
+                            mỗi ngọn đèn được thả đi, cũng là một ước nguyện bình an cho cha mẹ hiện tiền thân tâm
+                            thường an lạc, cho cha mẹ quá vãng siêu sinh Tịnh độ.</p>
+                        <a href="https://www.facebook.com/share/p/186CJBVDxu/" target="_blank" class="btn-join">Xem thêm
+                            >></a>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <img src="snclb.jpg" alt="Sinh nhật CLB">
+                    <div class="card-content">
+                        <h3>Clb Tín Nguyện bước sang tuổi thứ 6</h3>
+                        <span class="date-tag">📅11/08/2025 - Chùa Cổ Am</span>
+                        <p>💁🏼‍♀️Một hành trình tương đối dài để có thể nhìn lại, chúng ta đã dành những tháng năm tuổi
+                            trẻ sôi nổi và tràn đầy nhiệt huyết của mình, cùng gắn bó, cùng sẻ chia để có thể xây dựng
+                            và phát triển clb như ngày hôm nay. Hành trình đó quả thật không dễ dàng gì,biết bao những
+                            thăng trầm, có những lúc tưởng chừng như dừng lại nhưng không chúng ta vẫn ở đây cùng nhau
+                            trở về và ngồi dưới mái chùa cổ am thân yêu này cùng nhau tu học Phật Pháp,cùng nhau phụng
+                            sự Tam Bảo,tham gia nhiều hoạt động đầy ý nghĩa ( khóa tu mùa hè, hội trại họp bạn lục
+                            hòa,....), cùng nhau trưởng thành và hoàn thiện hơn từng ngày đó là một điều vô cùng đáng
+                            trân trọng.🙏🙏🙏</p>
+                        <a href="https://www.facebook.com/share/p/1DGsomWxrR/" target="_blank" class="btn-join">Xem thêm
+                            >></a>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <img src="trai_luc_hoa_13.jpg" alt="Trại Lục Hoà XIII">
+                    <div class="card-content">
+                        <h3>Tín Nguyện tại trại Lục Hòa 13🫶🌱🪷</h3>
+                        <span class="date-tag">📅05/08/2025 - Chùa Ngọc Khê</span>
+                        <p>🪷Mang trong mình màu áo Lam hiền hòa cùng tinh thần lục hòa kính, Gia đình Phật tử Cổ Am đã
+                            có mặt tại Trại Lục Hòa 2025 với thật nhiều niềm hân hoan và háo hức. Những bước chân đồng
+                            hành, những nụ cười rạng rỡ và những câu chuyện sẻ chia đã dệt nên một hành trình đầy ý
+                            nghĩa đó là hành trình của lòng từ bi, của những người con hướng về đạo Phật.🙏</p>
+                        <a href="https://www.facebook.com/share/p/178fUaGcvB/" target="_blank" class="btn-join">Xem thêm
+                            >></a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <strong>CÂU LẠC BỘ TÍN NGUYỆN - Chùa Cổ Am</strong><br>
+            Địa chỉ: Chùa Cổ Am, Liên Phương, Hưng Yên<br>
+            Fanpage : Tín Nguyện Volunteer club | Hotline: 0965.632.392<br>
+            <br>
+            <i>"Đi để cống hiến - Sống để yêu thương"</i>
+        </footer>
+    </div>
+
+</body>
+
+</html>
