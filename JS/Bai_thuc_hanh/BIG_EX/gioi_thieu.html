@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giới thiệu - CLB Tín Nguyện</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-banner {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            background-color: #ddd;
+        }
+
+        .navbar {
+            background-color: #d32f2f;
+            display: flex;
+            justify-content: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar a {
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #b71c1c;
+            border-bottom: 3px solid #ffcc00;
+        }
+
+        .main-content {
+            padding: 40px 30px;
+        }
+
+        .section-title {
+            color: #d32f2f;
+            text-align: center;
+            text-transform: uppercase;
+            margin-bottom: 50px;
+            font-size: 26px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: #ffcc00;
+            margin: 10px auto 0;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        /* =========================================
+           2. CLASS MỚI CHỈ DÀNH RIÊNG CHO TRANG GIỚI THIỆU 
+           ========================================= */
+        .about-section {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        /* Đảo ngược thứ tự cho các khối chẵn (Zigzag) */
+        .about-section:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h3 {
+            color: #d32f2f;
+            font-size: 20px;
+            margin-top: 0;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .about-text p {
+            line-height: 1.8;
+            color: #444;
+            text-align: justify;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+
+        .about-image {
+            flex: 1;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive trên điện thoại */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+            }
+
+            .about-section,
+            .about-section:nth-child(even) {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .about-text {
+                order: 1;
+            }
+
+            .about-image {
+                order: 2;
+            }
+
+            .about-image img {
+                height: auto;
+                aspect-ratio: 4/3;
+                /* Giữ tỷ lệ ảnh đẹp trên mobile */
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <img src="pic/hinh_nen_chinh.jpg" alt="Ảnh tập thể CLB Tín Nguyện" class="header-banner">
+
+        <nav class="navbar">
+            <a href="trang_chu.html">Trang chủ</a>
+            <a href="#">Giới thiệu & Lịch sử</a>
+            <a href="su_kien.html">Sự kiện sắp tới</a>
+            <a href="tuyen_thanh_vien.html">Đăng ký thành viên</a>
+        </nav>
+
+        <main class="main-content">
+            <h2 class="section-title">Về Chúng Tôi & Lịch Sử Hình Thành</h2>
+
+            <div class="about-section">
+                <div class="about-text">
+                    <h3>1. Câu lạc bộ Tín Nguyện: Chốn Bình Yên Để Yêu Thương Và Cống Hiến</h3>
+                    <p>Câu lạc bộ Tín Nguyện trực thuộc Chùa Cổ Am (Liên Phương, Hưng Yên) là mái nhà chung quy tụ những
+                        người con có tâm đạo, khát khao phụng sự nhân sinh. Hơn cả một tổ chức thiện nguyện, CLB là
+                        không gian để những người phát tâm tín nguyện có một chốn lui về để "sống chậm lại", tìm thấy sự
+                        bình yên, nghỉ ngơi sau những lo toan thường nhật và cùng nhau làm những việc thiện lành, tích
+                        đức cho đời.</p>
+                </div>
+                <div class="about-image">
+                    <img src="pic/le_vu_lan.jpg" alt="Chốn bình yên để yêu thương">
+                </div>
+            </div>
+
+            <div class="about-section">
+                <div class="about-text">
+                    <h3>2. Cơ duyên thành lập: Bắt đầu từ mùa hè năm 2019</h3>
+                    <p>Hành trình của Tín Nguyện được ươm mầm một cách rất đỗi tự nhiên vào mùa hè năm 2019. Khi ấy,
+                        chưa có tên gọi hay cơ cấu tổ chức rõ ràng, tiền thân của CLB chỉ đơn thuần là những người mang
+                        trong mình tín tâm, tập hợp lại để về chùa phụ giúp Thầy Thích Đồng Tường tổ chức khóa tu mùa hè
+                        đầu tiên. Chính từ cơ duyên gắn kết và sự đồng lòng trong công việc Phật sự năm ấy, mọi người đã
+                        quyết định gắn bó lâu dài cùng nhau, chính thức đặt nền móng hình thành nên Câu lạc bộ Tín
+                        Nguyện.</p>
+                </div>
+                <div class="about-image">
+                    <img src="pic/sinh_nhat.jpeg" alt="Cơ duyên thành lập năm 2019">
+                </div>
+            </div>
+
+            <div class="about-section">
+                <div class="about-text">
+                    <h3>3. Hành trình phát triển và Những dấu ấn tự hào</h3>
+                    <p>Trải qua nhiều năm nỗ lực không ngừng, từ những bước đi chập chững ban đầu, CLB nay đã phát triển
+                        vững mạnh với 49 thành viên chính thức dưới sự dẫn dắt tâm huyết của Chủ nhiệm câu lạc bộ - chị
+                        Phượng. Điểm tự hào lớn nhất của Tín Nguyện chính là tinh thần nhiệt huyết: luôn có một đội ngũ
+                        nòng cốt từ 10 - 20 thành viên sẵn sàng thu xếp công việc cá nhân để có mặt bất cứ lúc nào nhà
+                        chùa và cộng đồng cần đến. Bên cạnh đó, sức lan tỏa của CLB còn thu hút đông đảo các bạn tình
+                        nguyện viên sẵn sàng đăng ký tham gia hỗ trợ qua Fanpage mỗi khi có sự kiện mới.</p>
+                    <p>Trên chặng đường phụng sự, Tín Nguyện đã tổ chức thành công rất nhiều chương trình ý nghĩa. Dấu
+                        ấn lớn nhất và thành công rực rỡ nhất phải kể đến <strong>Khóa tu mùa hè năm 2023</strong> với
+                        hai đợt tổ chức liên tiếp diễn ra vô cùng tốt đẹp. Không dừng lại ở đó, các hoạt động thường
+                        niên như <strong>Trung thu cho em</strong> hay <strong>Đại lễ Vu Lan báo hiếu</strong> luôn nhận
+                        được sự vinh dự góp mặt và ủng hộ nhiệt tình của đông đảo bà con nhân dân trong tỉnh, cũng như
+                        những người con xa quê hương trở về.</p>
+                </div>
+                <div class="about-image">
+                    <img src="pic/hanh_trinh_pt.jpeg" alt="Hành trình phát triển và dấu ấn">
+                </div>
+            </div>
+
+            <div class="about-section">
+                <div class="about-text">
+                    <h3>4. Tôn chỉ hoạt động và Hướng đi tương lai</h3>
+                    <p>Mang trong mình tinh thần <strong>"Đi để cống hiến - Sống để yêu thương"</strong>, mục tiêu cốt
+                        lõi của Tín Nguyện trong tương lai là tiếp tục duy trì ngọn lửa nhiệt huyết, giữ vững các hoạt
+                        động ý nghĩa của CLB. Chúng tôi không ngừng hướng tới việc xây dựng một cộng đồng vững mạnh –
+                        nơi cái thiện được nhân rộng, nơi tuổi trẻ được cống hiến hết mình và cũng là nơi chở che, nuôi
+                        dưỡng tâm hồn cho những ai hướng về cửa Phật.</p>
+                </div>
+                <div class="about-image">
+                    <img src="pic/ton_chi_hd.jpeg" alt="Tôn chỉ hoạt động">
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <strong>CÂU LẠC BỘ TÍN NGUYỆN - Chùa Cổ Am</strong><br>
+            Địa chỉ: Chùa Cổ Am, Liên Phương, Hưng Yên<br>
+            Fanpage : Tín Nguyện Volunteer club | Hotline: 0965.632.392<br>
+            <br>
+            <i>"Đi để cống hiến - Sống để yêu thương"</i>
+        </footer>
+    </div>
+
+</body>
+
+</html>

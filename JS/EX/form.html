@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Form</title>
+</head>
+
+<body>
+
+    <h2 align="center">PTIT Ứng dụng Web - THIẾT KẾ FORM ĐƠN GIẢN</h2>
+
+    <table align="center" width="600" border="0" cellpadding="10">
+
+        <tr>
+            <td width="30%"><b>Họ và tên</b></td>
+            <td>
+                <input type="text" name="hoten" size="40">
+            </td>
+        </tr>
+
+        <tr>
+            <td><b>Email</b></td>
+            <td>
+                <input type="text" name="email" size="40">
+            </td>
+        </tr>
+
+        <tr>
+            <td><b>Số điện thoại</b></td>
+            <td>
+                <input type="text" name="sdt" size="40">
+            </td>
+        </tr>
+
+        <tr>
+            <td><b>Quê quán</b></td>
+            <td>
+                <select name="quequan">
+                    <option>--Chọn thành phố--</option>
+                    <option>Hà Nội</option>
+                    <option>TP.HCM</option>
+                    <option>Đà Nẵng</option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td><b>Giới tính</b></td>
+            <td>
+                <input type="radio" name="gioitinh" value="nam"> Nam
+                <input type="radio" name="gioitinh" value="nu"> Nữ
+            </td>
+        </tr>
+
+        <tr>
+            <td><b>Kỹ năng</b></td>
+            <td>
+                <input type="checkbox" name="kn" value="html"> HTML
+                <input type="checkbox" name="kn" value="css"> CSS
+                <input type="checkbox" name="kn" value="js"> JS
+                <input type="checkbox" name="kn" value="bs"> BOOTSTRAP
+            </td>
+        </tr>
+
+        <tr>
+            <td><b>Ngày sinh</b></td>
+            <td>
+                <input type="date" name="ngaysinh">
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top"><b>Giới thiệu bản thân</b></td>
+            <td>
+                <textarea name="gioithieu" cols="42" rows="5"></textarea>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2" align="center">
+                <input type="submit" value="Submit">
+                <input type="reset" value="Reset">
+            </td>
+        </tr>
+    </table>
+
+</body>
+
+</html>
