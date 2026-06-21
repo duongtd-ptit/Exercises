@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Quản Trị - CLB Tín Nguyện</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #d32f2f;
+            color: white;
+        }
+
+        .btn-delete {
+            background-color: #ff4d4f;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-delete:hover {
+            background-color: #cf1322;
+        }
+
+        .btn-edit {
+            background-color: #faad14;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        .btn-edit:hover {
+            background-color: #d48806;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <a href="trang_chu.html">Xem Trang Web</a>
+        <a href="#" style="background-color: #b71c1c;">Bảng Điều Khiển Admin</a>
+    </div>
+
+    <div class="admin-container">
+        <div class="admin-header">
+            <h2 style="color: #d32f2f; margin: 0;">Quản lý Sự kiện / Bài viết</h2>
+        </div>
+
+        <div style="background: #f9f9f9; padding: 20px; border-radius: 5px; margin-bottom: 30px;">
+            <h3 id="formTitle" style="margin-top: 0;">+ Thêm bài viết mới</h3>
+            <form id="formThemSuKien">
+                <input type="hidden" id="edit_id" value="">
+
+                <div class="form-group">
+                    <label>Vị trí hiển thị *</label>
+                    <select id="category" required>
+                        <option value="noi_bat">Sự kiện nổi bật (Hiển thị Trang Chủ)</option>
+                        <option value="sap_toi">Sự kiện sắp tới (Hiển thị Trang Sự Kiện)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Tiêu đề bài viết *</label>
+                    <input type="text" id="title" required>
+                </div>
+                <div class="form-group">
+                    <label>Thời gian diễn ra *</label>
+                    <input type="text" id="event_date" placeholder="Ví dụ: 06/10/2026" required>
+                </div>
+                <div class="form-group">
+                    <label>Địa điểm</label>
+                    <input type="text" id="location" value="Chùa Cổ Am">
+                </div>
+                <div class="form-group">
+                    <label>Nội dung chi tiết *</label>
+                    <textarea id="description" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Tên file ảnh (Ví dụ: pic/vu_lan.jpeg)</label>
+                    <input type="text" id="image_url">
+                </div>
+
+                <button type="submit" class="submit-btn" id="btnSubmit" style="width: auto; padding: 10px 20px;">ĐĂNG
+                    BÀI</button>
+                <button type="button" class="submit-btn" id="btnCancel"
+                    style="display: none; background-color: #666; width: auto; padding: 10px 20px;"
+                    onclick="huySua()">HỦY</button>
+            </form>
+        </div>
+
+        <h3>Danh sách bài viết hiện tại</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tiêu đề</th>
+                    <th>Thời gian</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody id="bangSuKien">
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // 1. Tải danh sách
+        function loadSuKien() {
+            fetch('http://127.0.0.1:3000/api/su-kien')
+                .then(function (res) { return res.json(); })
+                .then(function (data) {
+                    var tbody = document.getElementById('bangSuKien');
+                    tbody.innerHTML = "";
+
+                    data.forEach(function (item) {
+                        var tenLoai = item.category === 'noi_bat' ? 'Trang chủ' : 'Sắp tới';
+
+                        var tr = document.createElement('tr');
+                        // Xử lý chuỗi JSON an toàn trước khi gán vào HTML để tránh lỗi vỡ cấu trúc
+                        var safeItem = JSON.stringify(item).replace(/'/g, "&#39;");
+
+                        tr.setAttribute('data-item', safeItem);
+
+                        tr.innerHTML = "<td>" + item.id + "</td>" +
+                            "<td>[" + tenLoai + "] " + item.title + "</td>" +
+                            "<td>" + item.event_date + "</td>" +
+                            "<td>" +
+                            "<button class='btn-edit' onclick='chuanBiSua(this)'>Sửa</button>" +
+                            "<button class='btn-delete' onclick='xoaSuKien(" + item.id + ")'>Xóa</button>" +
+                            "</td>";
+                        tbody.appendChild(tr);
+                    });
+                });
+        }
+
+        // 2. Chức năng Sửa: Đổ dữ liệu ngược lên form
+        function chuanBiSua(btnElement) {
+            var tr = btnElement.parentNode.parentNode;
+            var itemData = JSON.parse(tr.getAttribute('data-item').replace(/&#39;/g, "'"));
+
+            // Điền dữ liệu vào form
+            document.getElementById('edit_id').value = itemData.id;
+            document.getElementById('category').value = itemData.category;
+            document.getElementById('title').value = itemData.title;
+            document.getElementById('event_date').value = itemData.event_date;
+            document.getElementById('location').value = itemData.location;
+            document.getElementById('description').value = itemData.description;
+            document.getElementById('image_url').value = itemData.image_url;
+
+            // Đổi giao diện form
+            document.getElementById('formTitle').innerText = "Cập nhật bài viết #" + itemData.id;
+            document.getElementById('btnSubmit').innerText = "LƯU THAY ĐỔI";
+            document.getElementById('btnCancel').style.display = "inline-block";
+            window.scrollTo(0, 0); // Tự động cuộn lên đầu trang
+        }
+
+        // 3. Hàm Hủy Sửa (reset form về trạng thái Thêm Mới ban đầu)
+        function huySua() {
+            document.getElementById('formThemSuKien').reset();
+            document.getElementById('edit_id').value = "";
+            document.getElementById('formTitle').innerText = "+ Thêm bài viết mới";
+            document.getElementById('btnSubmit').innerText = "ĐĂNG BÀI";
+            document.getElementById('btnCancel').style.display = "none";
+        }
+
+        // 4. Xử lý khi Submit Form (Tự động nhận diện Thêm mới hay Sửa)
+        document.getElementById('formThemSuKien').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            var formData = {
+                category: document.getElementById('category').value,
+                title: document.getElementById('title').value,
+                event_date: document.getElementById('event_date').value,
+                location: document.getElementById('location').value,
+                description: document.getElementById('description').value,
+                image_url: document.getElementById('image_url').value
+            };
+
+            var editId = document.getElementById('edit_id').value;
+            var method = "POST"; // Mặc định là gửi mới
+            var url = 'http://127.0.0.1:3000/api/su-kien';
+
+            if (editId !== "") {
+                method = "PUT"; // Đổi thành lệnh Cập nhật nếu ô ẩn edit_id có dữ liệu
+                url = 'http://127.0.0.1:3000/api/su-kien/' + editId;
+            }
+
+            fetch(url, {
+                method: method,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            })
+                .then(function (res) { return res.json(); })
+                .then(function (data) {
+                    alert(editId ? "Đã cập nhật bài viết thành công!" : "Đã thêm bài viết mới!");
+                    huySua(); // Reset form sạch sẽ
+                    loadSuKien(); // Load lại bảng để thấy dữ liệu mới
+                });
+        });
+
+        // 5. Hàm Xóa Sự kiện
+        function xoaSuKien(id) {
+            if (confirm("Bạn có chắc chắn muốn xóa bài viết này không?")) {
+                fetch('http://127.0.0.1:3000/api/su-kien/' + id, { method: 'DELETE' })
+                    .then(function (res) { return res.json(); })
+                    .then(function (data) {
+                        alert("Đã xóa thành công!");
+                        loadSuKien();
+                    });
+            }
+        }
+
+        // Chạy hàm lấy dữ liệu ngay khi vừa tải trang xong
+        loadSuKien();
+    </script>
+</body>
+
+</html>

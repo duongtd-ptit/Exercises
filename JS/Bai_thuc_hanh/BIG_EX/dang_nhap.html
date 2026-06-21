@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập Quản trị - CLB Tín Nguyện</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Ép form đăng nhập ra giữa màn hình */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            /* Bằng chiều cao 1 màn hình */
+            background-color: #f0f2f5;
+        }
+
+        .login-box {
+            background: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-box h2 {
+            text-align: center;
+            color: #d32f2f;
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-box">
+        <h2>ĐĂNG NHẬP HỆ THỐNG</h2>
+        <form id="formDangNhap">
+            <div class="form-group">
+                <label for="username">Tên đăng nhập</label>
+                <input type="text" id="username" placeholder="Nhập tài khoản admin..." required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mật khẩu</label>
+                <input type="password" id="password" placeholder="Nhập mật khẩu..." required>
+            </div>
+
+            <button type="submit" class="submit-btn">ĐĂNG NHẬP</button>
+        </form>
+    </div>
+
+    <script>
+        // Xử lý gửi dữ liệu khi bấm nút Đăng nhập
+        var form = document.getElementById('formDangNhap');
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault(); // Chặn load lại trang
+
+            var u = document.getElementById('username').value;
+            var p = document.getElementById('password').value;
+
+            // Đóng gói dữ liệu gửi xuống Backend
+            var loginData = {
+                username: u,
+                password: p
+            };
+
+            fetch('http://127.0.0.1:3000/api/dang-nhap', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(loginData)
+            })
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    if (data.success === true) {
+                        alert(data.message);
+                        // Đăng nhập thành công -> Điều hướng sang trang admin (sẽ làm ở bước sau)
+                        window.location.href = 'admin.html';
+                    } else {
+                        // Báo lỗi sai mật khẩu
+                        alert(data.message);
+                    }
+                })
+                .catch(function (error) {
+                    console.error('Lỗi:', error);
+                    alert("Không thể kết nối đến máy chủ!");
+                });
+        });
+    </script>
+</body>
+
+</html>

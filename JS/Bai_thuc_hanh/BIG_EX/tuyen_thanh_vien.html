@@ -5,167 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng ký thành viên - CLB Tín Nguyện</title>
-    <style>
-        /* KẾ THỪA CẤU HÌNH CHUNG */
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f2f5;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background-color: #fff;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .header-banner {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            display: block;
-            background-color: #ddd;
-        }
-
-        .navbar {
-            background-color: #d32f2f;
-            display: flex;
-            justify-content: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .navbar a {
-            color: white;
-            padding: 15px 30px;
-            text-decoration: none;
-            font-weight: bold;
-            text-transform: uppercase;
-            font-size: 14px;
-            transition: 0.3s;
-        }
-
-        .navbar a:hover {
-            background-color: #b71c1c;
-            border-bottom: 3px solid #ffcc00;
-        }
-
-        .main-content {
-            padding: 40px 30px;
-        }
-
-        .section-title {
-            color: #d32f2f;
-            text-align: center;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            font-size: 26px;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 3px;
-            background-color: #ffcc00;
-            margin: 10px auto 0;
-        }
-
-        /* CSS RIÊNG CHO FORM ĐĂNG KÝ */
-        .form-container {
-            max-width: 650px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            border: 1px solid #e0e0e0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .form-description {
-            text-align: center;
-            color: #555;
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-family: inherit;
-            font-size: 14px;
-            transition: border 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #d32f2f;
-        }
-
-        .submit-btn {
-            width: 100%;
-            background-color: #d32f2f;
-            color: white;
-            padding: 14px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: bold;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .submit-btn:hover {
-            background-color: #b71c1c;
-        }
-
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 30px 20px;
-            margin-top: 40px;
-            font-size: 14px;
-            line-height: 1.8;
-        }
-
-        @media (max-width: 768px) {
-            .navbar {
-                flex-direction: column;
-            }
-
-            .form-container {
-                padding: 20px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -233,6 +73,57 @@
             <i>"Đi để cống hiến - Sống để yêu thương"</i>
         </footer>
     </div>
+    <script>
+        // 1. Tóm lấy cái Form
+        var formDangKy = document.querySelector('form');
+
+        // 2. Lắng nghe sự kiện gửi (submit)
+        formDangKy.addEventListener('submit', function (event) {
+            // NGĂN CHẶN TRÌNH DUYỆT TỰ TẢI LẠI TRANG CỰC KỲ QUAN TRỌNG
+            event.preventDefault();
+
+            // 3. Lấy giá trị từ các ô nhập liệu
+            var fullname = document.getElementById('fullname').value;
+            var dob = document.getElementById('dob').value;
+            var phone = document.getElementById('phone').value;
+            var skill = document.getElementById('skill').value;
+            var reason = document.getElementById('reason').value;
+
+            // 4. Đóng gói dữ liệu thành Object
+            var formData = {
+                fullname: fullname,
+                dob: dob,
+                phone: phone,
+                skill: skill,
+                reason: reason
+            };
+
+            // 5. Dùng hàm fetch để làm "người giao hàng" mang Object xuống Backend
+            fetch('http://localhost:3000/api/dang-ky', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData) // Biến Object thành chuỗi JSON để truyền đi
+            })
+                .then(function (response) {
+                    return response.json(); // Đọc câu trả lời từ Backend
+                })
+                .then(function (data) {
+                    // Hiển thị thông báo (Thành công hoặc Thất bại)
+                    alert(data.message);
+
+                    // Nếu thành công thì xóa trắng form cho đẹp
+                    if (data.message.indexOf("thành công") !== -1) {
+                        formDangKy.reset();
+                    }
+                })
+                .catch(function (error) {
+                    console.error('Lỗi kết nối:', error);
+                    alert('Không thể kết nối đến máy chủ!');
+                });
+        });
+    </script>
 </body>
 
 </html>
