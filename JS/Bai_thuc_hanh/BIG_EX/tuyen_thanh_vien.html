@@ -79,10 +79,8 @@
 
         // 2. Lắng nghe sự kiện gửi (submit)
         formDangKy.addEventListener('submit', function (event) {
-            // NGĂN CHẶN TRÌNH DUYỆT TỰ TẢI LẠI TRANG CỰC KỲ QUAN TRỌNG
             event.preventDefault();
 
-            // 3. Lấy giá trị từ các ô nhập liệu
             var fullname = document.getElementById('fullname').value;
             var dob = document.getElementById('dob').value;
             var phone = document.getElementById('phone').value;
@@ -104,16 +102,14 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(formData) // Biến Object thành chuỗi JSON để truyền đi
+                body: JSON.stringify(formData)
             })
                 .then(function (response) {
-                    return response.json(); // Đọc câu trả lời từ Backend
+                    return response.json();
                 })
                 .then(function (data) {
-                    // Hiển thị thông báo (Thành công hoặc Thất bại)
                     alert(data.message);
 
-                    // Nếu thành công thì xóa trắng form cho đẹp
                     if (data.message.indexOf("thành công") !== -1) {
                         formDangKy.reset();
                     }

@@ -59,7 +59,7 @@
         var form = document.getElementById('formDangNhap');
 
         form.addEventListener('submit', function (event) {
-            event.preventDefault(); // Chặn load lại trang
+            event.preventDefault();
 
             var u = document.getElementById('username').value;
             var p = document.getElementById('password').value;
@@ -83,7 +83,7 @@
                 .then(function (data) {
                     if (data.success === true) {
                         alert(data.message);
-                        // Đăng nhập thành công -> Điều hướng sang trang admin (sẽ làm ở bước sau)
+                        // Đăng nhập thành công 
                         window.location.href = 'admin.html';
                     } else {
                         // Báo lỗi sai mật khẩu
