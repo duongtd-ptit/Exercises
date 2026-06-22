@@ -116,6 +116,12 @@
                     <input type="text" id="image_url">
                 </div>
 
+                <!-- BỔ SUNG Ô NHẬP LINK FACEBOOK -->
+                <div class="form-group">
+                    <label>Link bài viết Facebook (Dành cho nút Xem thêm)</label>
+                    <input type="text" id="fb_url" placeholder="Ví dụ: https://www.facebook.com/share/p/...">
+                </div>
+
                 <button type="submit" class="submit-btn" id="btnSubmit" style="width: auto; padding: 10px 20px;">ĐĂNG
                     BÀI</button>
                 <button type="button" class="submit-btn" id="btnCancel"
@@ -134,13 +140,11 @@
                     <th>Thao tác</th>
                 </tr>
             </thead>
-            <tbody id="bangSuKien">
-            </tbody>
+            <tbody id="bangSuKien"></tbody>
         </table>
     </div>
 
     <script>
-        // 1. Tải danh sách
         function loadSuKien() {
             fetch('http://127.0.0.1:3000/api/su-kien')
                 .then(function (res) { return res.json(); })
@@ -150,13 +154,10 @@
 
                     data.forEach(function (item) {
                         var tenLoai = item.category === 'noi_bat' ? 'Trang chủ' : 'Sắp tới';
-
                         var tr = document.createElement('tr');
-                        // Xử lý chuỗi JSON an toàn trước khi gán vào HTML để tránh lỗi vỡ cấu trúc
                         var safeItem = JSON.stringify(item).replace(/'/g, "&#39;");
 
                         tr.setAttribute('data-item', safeItem);
-
                         tr.innerHTML = "<td>" + item.id + "</td>" +
                             "<td>[" + tenLoai + "] " + item.title + "</td>" +
                             "<td>" + item.event_date + "</td>" +
@@ -169,12 +170,10 @@
                 });
         }
 
-        // 2. Chức năng Sửa: Đổ dữ liệu ngược lên form
         function chuanBiSua(btnElement) {
             var tr = btnElement.parentNode.parentNode;
             var itemData = JSON.parse(tr.getAttribute('data-item').replace(/&#39;/g, "'"));
 
-            // Điền dữ liệu vào form
             document.getElementById('edit_id').value = itemData.id;
             document.getElementById('category').value = itemData.category;
             document.getElementById('title').value = itemData.title;
@@ -183,14 +182,15 @@
             document.getElementById('description').value = itemData.description;
             document.getElementById('image_url').value = itemData.image_url;
 
-            // Đổi giao diện form
+            // Bổ sung lấy dữ liệu fb_url đổ ngược lên form
+            document.getElementById('fb_url').value = itemData.fb_url ? itemData.fb_url : "";
+
             document.getElementById('formTitle').innerText = "Cập nhật bài viết #" + itemData.id;
             document.getElementById('btnSubmit').innerText = "LƯU THAY ĐỔI";
             document.getElementById('btnCancel').style.display = "inline-block";
-            window.scrollTo(0, 0); // Tự động cuộn lên đầu trang
+            window.scrollTo(0, 0);
         }
 
-        // 3. Hàm Hủy Sửa (reset form về trạng thái Thêm Mới ban đầu)
         function huySua() {
             document.getElementById('formThemSuKien').reset();
             document.getElementById('edit_id').value = "";
@@ -199,7 +199,6 @@
             document.getElementById('btnCancel').style.display = "none";
         }
 
-        // 4. Xử lý khi Submit Form (Tự động nhận diện Thêm mới hay Sửa)
         document.getElementById('formThemSuKien').addEventListener('submit', function (e) {
             e.preventDefault();
 
@@ -209,15 +208,16 @@
                 event_date: document.getElementById('event_date').value,
                 location: document.getElementById('location').value,
                 description: document.getElementById('description').value,
-                image_url: document.getElementById('image_url').value
+                image_url: document.getElementById('image_url').value,
+                fb_url: document.getElementById('fb_url').value // GỬI KÈM LINK FB
             };
 
             var editId = document.getElementById('edit_id').value;
-            var method = "POST"; // Mặc định là gửi mới
+            var method = "POST";
             var url = 'http://127.0.0.1:3000/api/su-kien';
 
             if (editId !== "") {
-                method = "PUT"; // Đổi thành lệnh Cập nhật nếu ô ẩn edit_id có dữ liệu
+                method = "PUT";
                 url = 'http://127.0.0.1:3000/api/su-kien/' + editId;
             }
 
@@ -229,12 +229,11 @@
                 .then(function (res) { return res.json(); })
                 .then(function (data) {
                     alert(editId ? "Đã cập nhật bài viết thành công!" : "Đã thêm bài viết mới!");
-                    huySua(); // Reset form sạch sẽ
-                    loadSuKien(); // Load lại bảng để thấy dữ liệu mới
+                    huySua();
+                    loadSuKien();
                 });
         });
 
-        // 5. Hàm Xóa Sự kiện
         function xoaSuKien(id) {
             if (confirm("Bạn có chắc chắn muốn xóa bài viết này không?")) {
                 fetch('http://127.0.0.1:3000/api/su-kien/' + id, { method: 'DELETE' })
@@ -246,7 +245,6 @@
             }
         }
 
-        // Chạy hàm lấy dữ liệu ngay khi vừa tải trang xong
         loadSuKien();
     </script>
 </body>

@@ -20,57 +20,11 @@
         </nav>
 
         <main class="main-content">
-            <h2 class="section-title">Lịch Trình Sự Kiện 2026</h2>
+            <h2 class="section-title">Lịch Trình Sự Kiện Sắp Tới</h2>
 
-            <div class="upcoming-event">
-                <div class="event-image">
-                    <img src="pic/dai_le_phat_dan.jpg" alt="Đại Lễ Phật Đản">
-                </div>
-                <div class="event-details">
-                    <h3>Đại Lễ Phật Đản (Vesak) PL.2570</h3>
-                    <div class="event-meta">
-                        <span>📅 Tháng 4 Âm lịch (Dự kiến 30/05/2026)</span>
-                        <span>📍 Chùa Cổ Am</span>
-                    </div>
-                    <p>Đây là ngày lễ trọng đại nhất trong năm của những người con Phật. CLB Tín Nguyện sẽ tham gia hỗ
-                        trợ trang trí lễ đài, chuẩn bị xe hoa và đón tiếp quý Phật tử thập phương về dự lễ tắm Phật
-                        truyền thống.</p>
-                    <a href="tuyen_thanh_vien.html" class="btn-register">Đăng ký tham gia ngay >></a>
-                </div>
-            </div>
-
-            <div class="upcoming-event">
-                <div class="event-image">
-                    <img src="pic/nau_an.jpeg" alt="Khóa tu mùa hè">
-                </div>
-                <div class="event-details">
-                    <h3>Khóa Tu Mùa Hè 2026: "Trở Về Chốn Bình Yên"</h3>
-                    <div class="event-meta">
-                        <span>📅 15/06/2026 - 20/06/2026</span>
-                        <span>📍 Chùa Cổ Am</span>
-                    </div>
-                    <p>Mùa hè này, hãy tạm gác lại những thiết bị điện tử và nhịp sống hối hả để cùng trở về dưới mái
-                        chùa Cổ Am. CLB Tín Nguyện đang khẩn trương chuẩn bị các công tác hậu cần để mang đến một khóa
-                        tu ý nghĩa, giúp các bạn trẻ rèn luyện đạo đức, hiếu đạo và tình yêu thương.</p>
-                    <a href="tuyen_thanh_vien.html" class="btn-register">Đăng ký TNV Hỗ trợ >></a>
-                </div>
-            </div>
-
-            <div class="upcoming-event">
-                <div class="event-image">
-                    <img src="pic/vu_lan.jpeg" alt="Đại lễ Vu Lan 2026">
-                </div>
-                <div class="event-details">
-                    <h3>Đại Lễ Vu Lan Báo Hiếu 2026</h3>
-                    <div class="event-meta">
-                        <span>📅 Tháng 7 Âm lịch (Dự kiến)</span>
-                        <span>📍 Chùa Cổ Am</span>
-                    </div>
-                    <p>Chương trình tri ân đấng sinh thành thường niên của nhà chùa. CLB Tín Nguyện cần tuyển các bạn
-                        tình nguyện viên hỗ trợ công tác đón tiếp phật tử, cắm hoa, dâng đèn hoa đăng và chuẩn bị các
-                        tiết mục văn nghệ cúng dường.</p>
-                    <a href="tuyen_thanh_vien.html" class="btn-register">Đang cập nhật lịch...</a>
-                </div>
+            <!-- Khu vực JS tự động "bơm" các sự kiện sắp tới vào -->
+            <div id="sapToiContainer">
+                <p style="text-align: center;">Đang tải dữ liệu lịch trình...</p>
             </div>
 
         </main>
@@ -82,6 +36,52 @@
             <i>"Đi để cống hiến - Sống để yêu thương"</i>
         </footer>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('http://127.0.0.1:3000/api/su-kien')
+                .then(res => res.json())
+                .then(data => {
+                    const container = document.getElementById('sapToiContainer');
+                    container.innerHTML = '';
+
+                    // LỌC: Chỉ lấy các bài có category là 'sap_toi'
+                    const sapToiEvents = data.filter(item => item.category === 'sap_toi');
+
+                    if (sapToiEvents.length === 0) {
+                        container.innerHTML = '<p style="text-align: center; color: #777;">Chưa có lịch trình sự kiện nào sắp diễn ra.</p>';
+                        return;
+                    }
+
+                    sapToiEvents.forEach(item => {
+                        const eventDiv = document.createElement('div');
+                        eventDiv.className = 'upcoming-event';
+
+                        const hinhAnh = item.image_url ? item.image_url : 'pic/hinh_nen_chinh.jpg';
+
+                        eventDiv.innerHTML = `
+                            <div class="event-image">
+                                <img src="${hinhAnh}" alt="${item.title}" onerror="this.src='pic/hinh_nen_chinh.jpg'">
+                            </div>
+                            <div class="event-details">
+                                <h3>${item.title}</h3>
+                                <div class="event-meta">
+                                    <span>📅 ${item.event_date}</span>
+                                    <span>📍 ${item.location || 'Chùa Cổ Am'}</span>
+                                </</div>
+                                <p>${item.description}</p>
+                                <a href="tuyen_thanh_vien.html" class="btn-register">Đăng ký tham gia ngay >></a>
+                            </div>
+                        `;
+                        container.appendChild(eventDiv);
+                    });
+                })
+                .catch(err => {
+                    console.error("Lỗi:", err);
+                    document.getElementById('sapToiContainer').innerHTML = '<p style="text-align:center; color: red;">Không thể tải lịch trình từ server!</p>';
+                });
+        });
+    </script>
 </body>
 
 </html>
